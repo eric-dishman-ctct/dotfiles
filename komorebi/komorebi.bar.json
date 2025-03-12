@@ -1,0 +1,117 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LGUG2Z/komorebi/master/schema.bar.json",
+  "monitor": {
+    "index": 0,
+    "work_area_offset": {
+      "left": 0,
+      "top": 50,
+      "right": 0,
+      "bottom": 50
+    }
+  },
+  "font_family": "JetBrains Mono",
+  "font_size": 14,
+  "theme": {
+    "palette": "Catppuccin",
+    "name": "Macchiato",
+    "accent": "Red"
+  },
+  "max_label_width": 200.0,
+  "transparency_alpha": 2,
+  "grouping": {
+    "kind": "Alignment",
+    "style": "DefaultWithShadowB4O1S3",
+    "transparency_alpha": 190,
+    "rounding": 5
+  },
+  "left_widgets": [
+    {
+      "Komorebi": {
+        "workspaces": {
+          "enable": true,
+          "hide_empty_workspaces": false,
+          "display": "Text"
+        },
+        "configuration_switcher": {
+          "enable": false,
+          "configurations": {
+            "one": "C:\\Users\\Csaba\\komorebi.json",
+            "two": "C:\\Users\\Csaba\\komorebi.json"
+          }
+        },
+        "layout": {
+          "enable": true,
+          "display": "Icon",
+          "options": [
+            "BSP",
+            "UltrawideVerticalStack",
+            "Monocle",
+            "Floating",
+            "Paused"
+          ]
+        },
+        "focused_window": {
+          "enable": true,
+          "display": "IconAndText"
+        }
+      }
+    }
+  ],
+  "center_widgets": [
+    {
+      "Date": {
+        "enable": true,
+        "format": "DayDateMonthYear",
+        "label_prefix": "Icon"
+      }
+    },
+    {
+      "Time": {
+        "enable": true,
+        "format": "TwelveHour",
+        "label_prefix": "Icon"
+      }
+    }
+  ],
+  "right_widgets": [
+    {
+      "Media": {
+        "enable": false
+      }
+    },
+    {
+      "Storage": {
+        "enable": true
+      }
+    },
+    {
+      "Network": {
+        "enable": false,
+        "data_refresh_interval": 2,
+        "show_default_interface": false,
+        "show_total_data_transmitted": true,
+        "show_network_activity": true,
+        "network_activity_fill_characters": 10
+      }
+    },
+    {
+      "Cpu": {
+        "enable": true,
+        "data_refresh_interval": 5,
+        "label_prefix": "Icon"
+      }
+    },
+    {
+      "Memory": {
+        "enable": true,
+        "data_refresh_interval": 5,
+        "label_prefix": "Icon"
+      }
+    },
+    {
+      "Battery": {
+        "enable": true
+      }
+    }
+  ]
+}

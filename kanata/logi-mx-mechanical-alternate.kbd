@@ -1,0 +1,348 @@
+#| --------------------------------------------------------------------------
+
+                          KMonad: US ansi 60% template
+
+  This file contains the `defsrc` configuration for a standard US-ansi 60%
+  keyboard. Modelled on a standard DAS-keyboard 100% with the numpad, function
+  keys, arrows, and home-cluster removed. Copy out the 'defsrc' layer to start
+  your own keyboard configuration. Copy out the `deflayer` template to easily
+  start a new layer with matching `transparent` buttons.
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  volu vold del
+  grv   1    2    3    4    5    6    7    8    9    0    -    =     bspc   pgup
+  tab    q    w    e    r    t    y    u    i    o    p    [    ]     \     home
+  caps    a    s    d    f    g    h    j    k    l    ;    '        ret    end
+  lsft     z    x    c    v    b    n    m    ,    .    /       rsft   up   pgdn
+  lctl lmet lalt           spc                      ralt    rctl left down  rght
+)
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  volu vold del
+  grv   1    2    3    4    5    6    7    8    9    0    [    ]     bspc   pgup
+  tab    '    ,    .    p    y    f    g    c    r    l    /    =     \     home
+  caps    a    o    e    u    i    d    h    t    n    s    -        ret    end
+  lsft     ;    q    j    k    x    b    m    w    v    z       rsft   up   pgdn
+  lctl lmet lalt           spc                     ralt fn  rctl left down  rght
+)
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft      up
+  lctl lmet lalt           spc            ralt rmet rctl      lft  down rght
+)
+(deflayer
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  volu vold del
+  grv   1    2    3    4    5    6    7    8    9    0    [    ]     bspc   pgup
+  tab    '    ,    .    p    y    f    g    c    r    l    /    =     \     home
+  caps    a    o    e    u    i    d    h    t    n    s    -        ret    end
+  lsft     ;    q    j    k    x    b    m    w    v    z       rsft   up   pgdn
+  lctl lmet lalt           spc                     ralt fn  rctl left down  rght
+)
+(deflayer
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _     _    _    _    _    _    _    _    _    _    _    _    _    _
+  _      _    _    _    _    _    _    _    _    _    _    _    _    _
+  _       _    _    _    _    _    _    _    _    _    _    _    _
+  _        _    _    _    _    _    _    _    _    _    _    _         _
+  _    _    _              _              _    _    _         _    _    _
+)
+  -------------------------------------------------------------------------- |#
+(defcfg process-unmapped-keys yes)
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    [    ]    bspc
+  tab  '    ,    .    p    y    f    g    c    r    l    /    =    \
+  caps a    o    e    u    i    d    h    t    n    s    -    ret
+  lsft ;    q    j    k    x    b    m    w    v    z    rsft      up
+  lctl lmet lalt           spc            ralt      rctl      lft  down rght
+)
+#| ----------------------------------------------------------------------------
+                          Aliases
+-----------------------------------------------------------------------------|#
+(defvar
+  tap-time 150
+  hold-time 200
+)
+
+(defalias
+  a (tap-hold-release $tap-time $hold-time a lmet)
+  o (tap-hold-release $tap-time $hold-time o lalt)
+  e (tap-hold-release $tap-time $hold-time e lsft)
+  u (tap-hold-release $tap-time $hold-time u lctl)
+  h (tap-hold-release $tap-time $hold-time h rctl)
+  t (tap-hold-release $tap-time $hold-time t rsft)
+  n (tap-hold-release $tap-time $hold-time n ralt)
+  s (tap-hold-release $tap-time $hold-time s lmet)
+  . (tap-hold-press $tap-time $hold-time . (layer-while-held Layer2))
+  ;; Layers
+  L1  (layer-switch Layer1)
+  L2  (layer-switch Layer2)
+  ;;L2  (tap-hold 200 (layer-switch Layer 2) (tap-macro-release :))
+  L3  (layer-switch Layer3)
+  L4  (layer-switch Layer4)
+  qwe (layer-switch qwerty)
+  ;;dvk (layer-switch Layer1)
+  ;;spc (tap-hold-next 5000 spc A-tab)
+  kil C-c
+  ;;scl (stepped (press-only lctl) (release-only lctl))
+  kom (layer-switch komorebi)
+  ter (layer-switch terminal)
+  ;;scc (tap-hold 200 ; (tap-macro-release :)) ;; if tapped ; if held type : on release
+  ;;lec (around-only esc @L1) ;; after pressing the esc key go back to Layer 1
+  ;;lec (multi (release-key esc) @L1) ;; after pressing the esc key go back to Layer 1
+  lec (multi esc @L1 esc)
+  ;;act (tap-next ' lctl)
+  act (tap-hold $tap-time $hold-time ' lctl)
+  ;;cec (around-only (around lctl bspc) @L1)
+  ;;cec (multi (release-key C-bspc) @L1)
+  ;;cec (macro C-bspc 5 ( layer-switch Layer1) )
+  cec (multi C-bspc @L1)
+  ;;exp (around lsft 1)
+  exp S-1
+  ;;cec (before-after-next (around lctl bspc) @L1)
+  ;;cec (around-next lctl)
+  ;;---------------------------------------------------------------------------
+  ;;                        Neovim Controls
+  ;;---------------------------------------------------------------------------
+
+  ;;nso (tap-macro : w)   ;; enter Neovim save command
+  ;;nsq (tap-macro : w q) ;; enter Neovim save and quit command
+  ;;neee a modified jk for layer 4that goes back to layer 1
+  ;;je  (around-only j @L1) ;; after pressing j go back to Layer 1
+  je  (multi j @L1)
+  ;;ke  (around-only k @L1) ;; after pressing k go back to Layer 1
+  ke  (multi k @L1)
+  ;;he  (around-only h @L1) ;; after pressing h go back to Layer 1
+  he  (multi h @L1)
+  ;;le  (around-only l @L1) ;; after pressing l go back to Layer 1
+  le  (multi l @L1)
+  gom (tap-hold $tap-time $hold-time g (layer-while-held nvim_goto_marks))
+  mar (tap-hold $tap-time $hold-time m (layer-while-held nvim_marks))
+  ma  (macro m a)
+  mo  (macro m o)
+  me  (macro m e)
+  mu  (macro m u)
+  ga  (macro ' a)
+  go  (macro ' o)
+  ge  (macro ' e)
+  gu  (macro ' u)
+  mA  (macro m S-a)
+  mO  (macro m S-o)
+  mE  (macro m S-e)
+  mU  (macro m S-u)
+  gA  (macro ' S-a)
+  gO  (macro ' S-o)
+  gE  (macro ' S-e)
+  gU  (macro ' S-u)
+  ;;---------------------------------------------------------------------------
+  ;;                        Komorebi Controls
+  ;;---------------------------------------------------------------------------
+
+  kgl A-h       ;; komorebi focus window left
+  kgr A-l       ;; komorebi focus window right
+  kgu A-k       ;; komorebi focus window up
+  kgd A-j       ;; komorebi focus window down
+  knw A-n       ;; komorebi focus next monitor
+  kml A-S-h     ;; komorebi move window left
+  kmr A-S-l     ;; komorebi move window right
+  kmu A-S-k     ;; komorebi move window up
+  kmd A-S-j     ;; komorebi move window down
+  swx A-x       ;; komorebi swap window x axis
+  swy A-y       ;; komorebi swap window y axis
+  chl A-b       ;; komorebi change layout
+  prm A-S-ret   ;; komorebi promote focused window
+  max A-m       ;; komorebi maximize focused window
+  flt A-t       ;; komorebi float focused window
+  mon A-S-f     ;; komorebi monocle
+  ws1 A-1       ;; komorebi switch to workspace 1
+  ws2 A-2       ;; komorebi switch to workspace 2
+  ws3 A-3       ;; komorebi switch to workspace 3
+  ws4 A-4       ;; komorebi switch to workspace 4
+  ws5 A-5       ;; komorebi switch to workspace 5
+  mwt (layer-while-held komorebi_ws_move)
+  mw1 A-S-1     ;; komorebi move window to workspace 1
+  mw2 A-S-2     ;; komorebi move window to workspace 2
+  mw3 A-S-3     ;; komorebi move window to workspace 3
+  mw4 A-S-4     ;; komorebi move window to workspace 4
+  mw5 A-S-5     ;; komorebi move window to workspace 5
+  clw A-f4      ;; close focused window
+  sws (layer-while-held komorebi_stack)
+  ksl A-lft     ;; komorebic stack left
+  ksd A-down ;; komorebic stack down
+  ksu A-up   ;; komorebic stack up
+  ksr A-rght    ;; komorebic stack right
+  ksc A-v       ;; komorebic cycle-stack next
+  kus A-u       ;; komorebic unstack
+  ;;---------------------------------------------------------------------------
+  ;;                      Terminal Controls
+  ;;---------------------------------------------------------------------------
+  tgl C-S-h     ;; terminal focus window left
+  tgr C-S-l     ;; terminal focus window right
+  tgu C-S-k     ;; terminal focus window up
+  tgd C-S-j     ;; terminal focus window down
+  tnl C-A-S-h   ;; terminal new window left
+  tnr C-A-S-l   ;; terminal new window right
+  tnu C-A-S-k   ;; terminal new window up
+  tnd C-A-S-j   ;; terminal new window down
+  zom C-S-z     ;; terminal zoom focus window
+  ttb C-A-S-f   ;; terminal toggle tab view
+  tcw C-S-w     ;; terminal close window
+  tnt C-tab     ;; terminal next tab
+  tpt C-S-tab   ;; terminal previous tab
+  tnb C-S-g     ;; terminal new tab
+  ;;duh (tap-next dot \_)
+  ;;sla (tap-next / ')
+
+  ;;---------------------------------------------------------------------------
+  ;;                    Vivaldi Settings
+  ;;---------------------------------------------------------------------------
+
+  vbl S-lft     ;; Spatial navigation left
+  vbr S-rght    ;; Spatial navigation right
+  vbu S-up      ;; Spatial navigation up
+  vbd S-down    ;; Spatial navigation down
+  vpu C-S-up    ;; page up
+  vpd C-S-down  ;; page down
+  vtp C-A-S-up  ;; scroll to top of page
+  vbp C-A-S-down ;; scroll to bottom of page
+  nw  C-n       ;; New window
+  vqc C-S-e     ;; Vivaldi quick command menu
+  vht C-h
+  vbm C-b
+  fnp f6        ;; Focus next pane
+  fpp S-f6      ;; Focus previous pane
+  nt  C-t       ;; New tab
+  ct  C-w       ;; Close tab
+  tcf C-tab     ;; Tab cycler forward
+  tcb C-S-tab   ;; Tab cycler back
+  fip C-f       ;; Find in page
+  fsf C-k       ;; Focus search field
+  faf f8        ;; Focus address field
+
+  tks C-S-1
+)
+
+
+#| ----------------------------------------------------------------------------
+                          Layers
+-----------------------------------------------------------------------------|#
+;;(defsrc
+;;  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  volu vold del
+;;  grv   1    2    3    4    5    6    7    8    9    0    -    =     bspc   pgup
+;;  tab    q    w    e    r    t    y    u    i    o    p    [    ]     \     home
+;;  caps    a    s    d    f    g    h    j    k    l    ;    '        ret    end
+;;  lsft     z    x    c    v    b    n    m    ,    .    /       rsft   up   pgdn
+;;  lctl lmet lalt           spc                      ralt    rctl left down  rght
+;;)
+;;
+;;(defsrc
+;;  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  volu vold del
+;;  grv   1    2    3    4    5    6    7    8    9    0    [    ]     bspc   pgup
+;;  tab    '    ,    .    p    y    f    g    c    r    l    /    =     \     home
+;;  caps    a    o    e    u    i    d    h    t    n    s    -        ret    end
+;;  lsft     ;    q    j    k    x    b    m    w    v    z     rsft     up   pgdn
+;;  lctl lmet lalt                 spc               ralt fn  rctl left down  rght
+;;)
+
+(deflayer Layer1
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  @qwe  _    _    _    _    _    _    _    _    _    _    _    _    XX
+  @ter   ;    ,    @.   _    _    _    @gom _    _    _    _    S-2   _
+  @kom    _    @o   @e   @u   _    _    @h   @t   @n   _    _    _
+  _        @act _    _    _    _    _    @mar _    _    _    _         _
+  _    _    _              spc            @L2      _              _    _    _
+)
+
+(deflayer Layer2 ;; Symbols
+  _    lrld _    _    _    _    _    _    _    _    _    _    _
+  _     _    _    _    _    _    _    _    _    _    _    _    _    _
+  @ter   tab  S-2  S-3  S-4  S-5  S-6  S-7  S-8  _    bspc _    _    _
+  @kom    @lec [    S-[  S-9  S-7  =    S-0   S-] ]    \    del  _
+  _        @cec _    @exp S-=   _   -     _    _    _   @L3  _         _
+  _    _    _              @L1            @L4        _            _    _    _
+)
+
+(deflayer Layer3 ;; Browser
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _     _    _    _    _    _    _    _    _    _    _    _    _    _
+  @ter   tab  _    @vpu @vtp _    @faf _    @vbu _    _    _    _    _
+  @kom    @lec _    @vpd @vbp _    _    @vbl @vbd @vbr _    _    _
+  _        @cec _    _    _    _    _    _    _    @ct  _    _         _
+  _    _    _              @L1            @L2      _              _    _    _
+)
+
+(deflayer Layer4 ;; Numbers
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _     _    _    _    _    _    _    _    _    _    _    _    _    _
+  @ter   tab  _    _    _    S--  -    7    8    9    bspc _    _    _
+  @kom    @lec _    @he  @le  S-=  =    4    5    6    del  _    _
+  _        @cec S-8  @je  @ke  .    0    1    2    3    _    _         _
+  _    _    _              @L1            @L2      _              _    _    _
+)
+
+(deflayer komorebi
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _     _    _    _    _    _    _    _    _    _    _    _    _    _
+  @ter   @lec _    _    @prm @swy @mon _    _    _    @kgr _    _    _
+  XX      @ws1 @ws2 @ws3 @ws4 @ws5 _    @kgl @flt @knw _    _    _
+  _        @mwt @sws @kgd @kgu @swx @chl @max _    _    _    _         _
+  _    _    _              @L1            @L2      _              _    _    _
+)
+
+(deflayer komorebi_ws_move
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _     _    _    _    _    _    _    _    _    _    _    _    _    _
+  @ter   @lec _    _    _    _    _    _    _    _    @kmr _    _    _
+  XX      @mw1 @mw2 @mw3 @mw4 @mw5 _    @kml _    _    _    _    _
+  _        _    _    @kmd @kmu _    _    _    _    _    _    _         _
+  _    _    _              @L1            @L2      _              _    _    _
+)
+
+(deflayer komorebi_stack
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _     _    _    _    _    _    _    _    _    _    _    _    _    _
+  @ter   @lec _    _    _    _    _    _    @ksc _    _    _    _    _
+  XX      _    _    _    @kus _    _    @ksl @ksd @ksu @ksr _    _
+  _        _    _    _    _    _    _    _    _    _    _    _         _
+  _    _    _              @L1            @L2      _              _    _    _
+)
+
+(deflayer terminal
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _     _    _    _    _    _    _    _    _    _    _    _    _    _
+  XX     tab  _    @tnu _    _    @ttb @tnb @tgu _    _    _    _    _
+  @kom    @lec @tnl @tnd @tnr _    _    @tgl @tgd @tgr _    _    _
+  _        _    _    @tpt @tnt _    _    _    @tcw _    @zom _         _
+  _    _    _              @L1            @L2      _              _    _    _
+)
+
+(deflayer nvim_marks
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _     _    _    _    _    _    _    _    _    _    _    _    _    _
+  _      @mA  @mO  @mE  @mU  _    _    _    _    _    _    _    _    _
+  _       @ma  @mo  @me  @mu  _    _    _    _    _    _    _    _
+  _        _    _    _    _    _    _    _    _    _    _    _         _
+  _    _    _              @L1            @L2      _              _    _    _
+)
+(deflayer nvim_goto_marks
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _     _    _    _    _    _    _    _    _    _    _    _    _    _
+  _      @gA  @gO  @gE  @gU  _    _    _    _    _    _    _    _    _
+  _       @ga  @go  @ge  @gu  _    _    _    _    _    _    _    _
+  _        _    _    _    _    _    _    _    _    _    _    _         _
+  _    _    _              @L1            @L2      _              _    _    _
+)
+;;
+(deflayer qwerty
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv   1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab    q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps    a    s    d    f    g    h    j    k    l    ;    '    ret
+  rsft     z    x    c    v    b    n    m    ,    .    /    rsft      _
+  lctl lmet lalt           spc            ralt     rctl           @L1  down rght
+)

@@ -1,0 +1,15 @@
+(defcfg process-unmapped-keys yes)
+
+;; defsrc is still necessary
+(defsrc)
+(defvar
+  tap-time 150
+  hold-time 200
+)
+(defalias
+escholdcaps (tap-hold-release $tap-time $hold-time esc lctl)
+)
+(deflayermap (base-layer)
+  caps @escholdcaps
+  esc caps
+)
