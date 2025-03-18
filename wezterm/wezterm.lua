@@ -49,13 +49,13 @@ local launch_menu = {}
 
 -- Detect Windows OS
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
-	--- Grab the ver info for later use.
-	---@diagnostic disable-next-line: unused-local
-	local success, stdout, stderr = wezterm.run_child_process({ "cmd.exe", "ver" })
-	---@diagnostic disable-next-line: unused-local
-	local major, minor, build, rev = stdout:match("Version ([0-9]+)%.([0-9]+)%.([0-9]+)%.([0-9]+)")
-	---@diagnostic disable-next-line: unused-local
-	local is_windows_11 = tonumber(build) >= 22000
+  --- Grab the ver info for later use.
+  ---@diagnostic disable-next-line: unused-local
+  local success, stdout, stderr = wezterm.run_child_process({ "cmd.exe", "ver" })
+  ---@diagnostic disable-next-line: unused-local
+  local major, minor, build, rev = stdout:match("Version ([0-9]+)%.([0-9]+)%.([0-9]+)%.([0-9]+)")
+  ---@diagnostic disable-next-line: unused-local
+  local is_windows_11 = tonumber(build) >= 22000
 end
 
 -- This will hold the configuration.
@@ -64,22 +64,22 @@ local config = wezterm.config_builder()
 config.default_prog = { "pwsh.exe", "-NoLogo" }
 
 table.insert(launch_menu, {
-	label = "PowerShell",
-	args = { "powershell.exe", "-NoLogo" },
+  label = "PowerShell",
+  args = { "powershell.exe", "-NoLogo" },
 })
 
 table.insert(launch_menu, {
-	label = "Pwsh",
-	args = { "pwsh.exe", "-NoLogo" },
+  label = "Pwsh",
+  args = { "pwsh.exe", "-NoLogo" },
 })
 
 config.launch_menu = launch_menu
 
 config.window_padding = {
-	left = "1cell",
-	right = "1cell",
-	top = "0.0cell",
-	bottom = "0.0cell",
+  left = "1cell",
+  right = "1cell",
+  top = "0.0cell",
+  bottom = "0.0cell",
 }
 
 -- Color scheme
@@ -94,8 +94,8 @@ config.line_height = 1.3
 -- Background
 ---@diagnostic disable-next-line: unused-local
 local gpus = wezterm.gui.enumerate_gpus() -- for some reason opacity does not work without this line on Windows
-config.window_background_opacity = 0
-config.win32_system_backdrop = "Mica"
+config.window_background_opacity = 0.95
+config.win32_system_backdrop = "Disable"
 config.window_decorations = "TITLE | RESIZE"
 
 -- Tab bar
@@ -108,54 +108,54 @@ config.debug_key_events = true
 
 -- Key maps
 config.keys = {
-	{
-		key = "h",
-		mods = "CTRL|SHIFT",
-		action = act.ActivatePaneDirection("Left"),
-	},
+  {
+    key = "h",
+    mods = "CTRL|SHIFT",
+    action = act.ActivatePaneDirection("Left"),
+  },
 
-	{
-		key = "l",
-		mods = "CTRL|SHIFT",
-		action = act.ActivatePaneDirection("Right"),
-	},
-	{
-		key = "j",
-		mods = "CTRL|SHIFT",
-		action = act.ActivatePaneDirection("Down"),
-	},
-	{
-		key = "k",
-		mods = "CTRL|SHIFT",
-		action = act.ActivatePaneDirection("Up"),
-	},
-	{
-		mods = "CTRL|ALT|SHIFT",
-		key = "l",
-		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
-	},
-	{
-		mods = "CTRL|ALT|SHIFT",
-		key = "j",
-		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
-	},
-	{
-		mods = "CTRL|SHIFT",
-		key = "g",
-		action = wezterm.action.SpawnTab("CurrentPaneDomain"),
-	},
-	{
-		key = "w",
-		mods = "CTRL|SHIFT",
-		action = wezterm.action.CloseCurrentPane({ confirm = false }),
-	},
-	{
-		key = "9",
-		mods = "ALT",
-		action = act.ShowLauncherArgs({
-			flags = "FUZZY|WORKSPACES",
-		}),
-	},
+  {
+    key = "l",
+    mods = "CTRL|SHIFT",
+    action = act.ActivatePaneDirection("Right"),
+  },
+  {
+    key = "j",
+    mods = "CTRL|SHIFT",
+    action = act.ActivatePaneDirection("Down"),
+  },
+  {
+    key = "k",
+    mods = "CTRL|SHIFT",
+    action = act.ActivatePaneDirection("Up"),
+  },
+  {
+    mods = "CTRL|ALT|SHIFT",
+    key = "l",
+    action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
+  },
+  {
+    mods = "CTRL|ALT|SHIFT",
+    key = "j",
+    action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
+  },
+  {
+    mods = "CTRL|SHIFT",
+    key = "g",
+    action = wezterm.action.SpawnTab("CurrentPaneDomain"),
+  },
+  {
+    key = "w",
+    mods = "CTRL|SHIFT",
+    action = wezterm.action.CloseCurrentPane({ confirm = false }),
+  },
+  {
+    key = "9",
+    mods = "ALT",
+    action = act.ShowLauncherArgs({
+      flags = "FUZZY|WORKSPACES",
+    }),
+  },
 }
 return config
 
