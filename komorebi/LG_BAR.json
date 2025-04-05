@@ -1,0 +1,123 @@
+{
+    "$schema": "https://raw.githubusercontent.com/LGUG2Z/komorebi/master/schema.bar.json",
+    "monitor": {
+        "index": 3,
+        "work_area_offset": {
+            "left": 0,
+            "top": 40,
+            "right": 0,
+            "bottom": 50
+        }
+    },
+    "height": 40,
+    "font_family": "JetBrains Mono",
+    "font_size": 14,
+    "theme": {
+        "palette": "Catppuccin",
+        "name": "Macchiato",
+        "accent": "Red"
+    },
+    "max_label_width": 200.0,
+    "transparency_alpha": 2,
+    "grouping": {
+        "kind": "Alignment",
+        "style": "DefaultWithShadowB4O1S3",
+        "transparency_alpha": 100,
+        "rounding": 5
+    },
+    "left_widgets": [
+        {
+            "Komorebi": {
+                "workspaces": {
+                    "enable": true,
+                    "hide_empty_workspaces": true,
+                    "display": "AllIcons"
+                },
+                "configuration_switcher": {
+                    "enable": false,
+                    "configurations": {
+                        "one": "C:\\Users\\Csaba\\komorebi.json",
+                        "two": "C:\\Users\\Csaba\\komorebi.json"
+                    }
+                },
+                "layout": {
+                    "enable": true,
+                    "display": "Icon",
+                    "options": [
+                        "VerticalStack",
+                        "RightMainVerticalStack",
+                        "UltrawideVerticalStack",
+                        "BSP",
+                        "Columns"
+                    ]
+                },
+                "workspace_layer": {
+                    "Display": "IconAndText",
+                    "enable": true,
+                    "show_when_tiling": true
+                },
+                "focused_window": {
+                    "enable": true,
+                    "display": "Icon"
+                }
+            }
+        }
+    ],
+    "center_widgets": [
+        {
+            "Date": {
+                "enable": true,
+                "format": "DayDateMonthYear",
+                "label_prefix": "Icon"
+            }
+        },
+        {
+            "Time": {
+                "enable": true,
+                "format": "TwelveHour",
+                "label_prefix": "Icon"
+            }
+        }
+    ],
+    "right_widgets": [
+        {
+            "Media": {
+                "enable": false
+            }
+        },
+        {
+            "Storage": {
+                "enable": true
+            }
+        },
+        {
+            "Network": {
+                "enable": false,
+                "data_refresh_interval": 2,
+                "show_default_interface": false,
+                "show_total_data_transmitted": true,
+                "show_network_activity": true,
+                "network_activity_fill_characters": 10
+            }
+        },
+        {
+            "Cpu": {
+                "enable": true,
+                "data_refresh_interval": 5,
+                "label_prefix": "Icon"
+            }
+        },
+        {
+            "Memory": {
+                "enable": true,
+                "data_refresh_interval": 5,
+                "label_prefix": "Icon"
+            }
+        },
+        {
+            "Battery": {
+                "enable": true
+            }
+        }
+    ]
+}
