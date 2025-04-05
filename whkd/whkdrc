@@ -6,8 +6,8 @@ alt + o                 : taskkill /f /im whkd.exe; Start-Process whkd -WindowSt
 alt + shift + o         : komorebic reload-configuration
 
 # Force manage / unmanage
-alt + shift + m 		: komorebic manage
-alt + shift + u 		: komorebic unmanage
+alt + shift + m 		    : komorebic manage
+alt + shift + u 		    : komorebic unmanage
 
 # Focus windows
 alt + h                 : komorebic focus left
@@ -41,6 +41,7 @@ alt + shift + s         : komorebic resize-axis vertical decrease
 
 # Manipulate windows
 alt + t                 : komorebic toggle-float
+alt + shift + t         : komorebic toggle-workspace-layer
 alt + shift + f         : komorebic toggle-monocle
 # alt + shift + m         : komorebic toggle-maximize
 ctrl + alt + shift + m  : komorebic minimize
@@ -52,7 +53,7 @@ alt + p                 : komorebic toggle-pause
 # Layouts
 alt + x                 : komorebic flip-layout horizontal
 alt + y                 : komorebic flip-layout vertical
-alt + b 		        : komorebic cycle-layout next
+alt + b 		            : komorebic cycle-layout next
 
 # Workspaces
 alt + 1                 : komorebic focus-workspace 0
