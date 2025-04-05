@@ -88,7 +88,7 @@ config.color_scheme = "Catppuccin Mocha"
 
 -- Fonts
 -- wezterm.font("JetBrainsMono NL Nerd Font", { weight = "DemiBold", stretch = "Normal", style = "Normal" }) -- (AKA: JetBrainsMono NF, JetBrainsMono NF SemiBold) C:\USERS\DISHMEJ\APPDATA\LOCAL\MICROSOFT\WINDOWS\FONTS\JETBRAINSMONONERDFONT-SEMIBOLD.TTF, DirectWrite
-config.font_size = 16
+config.font_size = 14
 config.line_height = 1.3
 config.term = "xterm-256color"
 
