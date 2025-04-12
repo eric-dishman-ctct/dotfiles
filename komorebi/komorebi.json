@@ -8,6 +8,7 @@
     "transparency_alpha": 250,
     "default_workspace_padding": 5,
     "default_container_padding": 5,
+    "window_container_behaviour": "Append",
     "border_width": 5,
     "border_padding": 0,
     "border_offset": -1,
@@ -33,18 +34,18 @@
     },
     "animation": {
         "duration": 250,
-        "enabled": true,
+        "enabled": false,
         "style": "EaseInOutQuad",
         "fps": 90
     },
     "display_index_preferences": {
         "0": "0",
-        "1": "KH0NG66A3J9B",
-        "2": "KH0NG66A316B",
+        "1": "KH0NG66A316B",
+        "2": "KH0NG66A3J9B",
         "3": "431338"
     },
     "bar_configurations": [
-        "$Env:KOMOREBI_CONFIG_HOME/LATOP_BAR.json",
+        "$Env:KOMOREBI_CONFIG_HOME/LAPTOP_BAR.json",
         "$Env:KOMOREBI_CONFIG_HOME/LEFT_DELL_BAR.json",
         "$Env:KOMOREBI_CONFIG_HOME/RIGHT_DELL_BAR.json",
         "$Env:KOMOREBI_CONFIG_HOME/LG_BAR.json"
@@ -89,6 +90,36 @@
             },
             "workspaces": [
                 {
+                    "name": "R1",
+                    "layout": "VerticalStack"
+                },
+                {
+                    "name": "R2",
+                    "layout": "VerticalStack"
+                },
+                {
+                    "name": "R3",
+                    "layout": "VerticalStack"
+                },
+                {
+                    "name": "R4",
+                    "layout": "VerticalStack"
+                },
+                {
+                    "name": "R5",
+                    "layout": "UltrawideVerticalStack"
+                }
+            ]
+        },
+        {
+            "window_based_work_area_offset": {
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0
+            },
+            "workspaces": [
+                {
                     "name": "L1",
                     "layout": "VerticalStack"
                 },
@@ -119,23 +150,23 @@
             },
             "workspaces": [
                 {
-                    "name": "R1",
+                    "name": "U1",
                     "layout": "VerticalStack"
                 },
                 {
-                    "name": "R2",
+                    "name": "U2",
                     "layout": "VerticalStack"
                 },
                 {
-                    "name": "R3",
+                    "name": "U3",
                     "layout": "VerticalStack"
                 },
                 {
-                    "name": "R4",
+                    "name": "U4",
                     "layout": "VerticalStack"
                 },
                 {
-                    "name": "R5",
+                    "name": "U5",
                     "layout": "UltrawideVerticalStack"
                 }
             ]

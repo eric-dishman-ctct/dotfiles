@@ -1,7 +1,7 @@
 {
     "$schema": "https://raw.githubusercontent.com/LGUG2Z/komorebi/master/schema.bar.json",
     "monitor": {
-        "index": 2,
+        "index": 1,
         "work_area_offset": {
             "left": 0,
             "top": 40,

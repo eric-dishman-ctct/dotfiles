@@ -33,13 +33,6 @@
                     "hide_empty_workspaces": true,
                     "display": "AllIcons"
                 },
-                "configuration_switcher": {
-                    "enable": false,
-                    "configurations": {
-                        "one": "C:\\Users\\Csaba\\komorebi.json",
-                        "two": "C:\\Users\\Csaba\\komorebi.json"
-                    }
-                },
                 "layout": {
                     "enable": true,
                     "display": "Icon",
