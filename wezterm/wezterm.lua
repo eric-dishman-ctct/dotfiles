@@ -46,15 +46,14 @@ config.window_padding = {
 }
 
 -- Color scheme
-config.colors = require('cyberdream')
+-- config.colors = require('cyberdream')
+config.color_scheme = "Eldritch"
+config.force_reverse_video_cursor = true
 
 -- Fonts
-config.font = wezterm.font {
-  family = 'JetBrainsMono Nerd Font',
-  weight = 'DemiBold',
-}
+config.font = wezterm.font("JetBrainsMono Nerd Font Mono", {weight="Medium", stretch="Normal", style="Normal"})
 config.font_size = 14
-config.line_height = 1.3
+config.line_height = 1.33
 
 config.term = "wezterm"
 
@@ -71,10 +70,38 @@ config.prefer_egl = true
 -- Tab bar
 config.enable_tab_bar = true
 config.tab_bar_at_bottom = true
-config.use_fancy_tab_bar = true
-config.tab_and_split_indices_are_zero_based = true
-config.unzoom_on_switch_pane = true
-config.debug_key_events = true
+config.use_fancy_tab_bar = false
+-- config.tab_and_split_indices_are_zero_based = true
+-- config.unzoom_on_switch_pane = true
+config.debug_key_events = false
+
+local function basename(s)
+  return string.gsub(s, '(.*[/\\])(.*)', '%2')
+end
+
+wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+  local palette = config.resolved_palette.tab_bar
+  local colors = {
+    bg = palette.background,
+    tab = tab.is_active and palette.active_tab.bg_color or palette.inactive_tab.bg_color,
+    fg = tab.is_active and palette.active_tab.fg_color or palette.inactive_tab.fg_color,
+  }
+
+  local pane = tab.active_pane
+  local title = basename(pane.foreground_process_name)
+  final_title = title.gsub(title,'.exe','')
+  return {
+    { Background = { Color = colors.bg } },
+    { Foreground = { Color = colors.tab } },
+    { Text = wezterm.nerdfonts.ple_lower_right_triangle },
+    { Background = { Color = colors.tab } },
+    { Foreground = { Color = colors.fg } },
+    { Text = ' ' .. final_title .. ' ' },
+    { Background = { Color = colors.tab } },
+    { Foreground = { Color = colors.bg } },
+    { Text = wezterm.nerdfonts.ple_upper_right_triangle },
+  }
+end)
 
 -- Custom commands
 wezterm.on('augment-command-palette', function()
@@ -82,3 +109,44 @@ wezterm.on('augment-command-palette', function()
 end)
 
 return config
+
+
+-------------------------------------------------------------------------------
+-- SOME STUFF I USED EARLIER
+-------------------------------------------------------------------------------
+-- wezterm.on(
+--   'format-tab-title',
+--   function(tab, tabs, panes, config, hover, max_width)
+--
+-- 		local pane = tab.active_pane
+--     local title = basename(pane.foreground_process_name)
+--
+--     if tab.is_active then
+--       return {
+--         { Background = { Color = "#50fa7b" } },
+--         { Text = ' ' .. title .. ' ' },
+--       }
+--     end
+--     local has_unseen_output = false
+--     for _, pane in ipairs(tab.panes) do
+--       if pane.has_unseen_output then
+--         has_unseen_output = true
+--         break
+--       end
+--     end
+--     if has_unseen_output then
+--       return {
+--         { Background = { Color = "#8BE9FD" } },
+--         { Text = ' ' .. title .. ' ' },
+--       }
+--     end
+--     return tab.active_pane.title
+--   end
+-- )
+-- 
+-- FONTS
+-- config.font = wezterm.font("JetBrainsMono Nerd Font Mono", {weight="Medium", stretch="Normal", style="Italic"})
+-- config.font = wezterm.font("JetBrainsMono Nerd Font Mono", {weight="Bold", stretch="Normal", style="Normal"})
+-- config.font = wezterm.font("ShureTechMono Nerd Font Mono", {weight="Regular", stretch="Normal", style="Normal"})
+-- config.font = wezterm.font("ProFontWindows Nerd Font Mono", {weight="Regular", stretch="Normal", style="Normal"})
+-- config.font = wezterm.font("SpaceMono Nerd Font Mono", {weight="Regular", stretch="Normal", style="Normal"})

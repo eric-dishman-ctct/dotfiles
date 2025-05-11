@@ -50,6 +50,21 @@ M.keys = {
       flags = "FUZZY|WORKSPACES",
     }),
   },
+  {
+    key = 'PageUp',
+    mods = 'SHIFT',
+    action = act.ScrollByPage(-1)
+  },
+  {
+    key = 'PageDown',
+    mods = 'SHIFT',
+    action = act.ScrollByPage(1)
+  },
+	{
+		key = 'Enter',
+		mods = 'SHIFT',
+		action = act.SendString '\x1b[13;2u'
+	},
 }
 
 return M
