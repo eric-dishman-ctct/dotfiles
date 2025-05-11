@@ -1,5 +1,5 @@
 {
-    "$schema": "https://raw.githubusercontent.com/LGUG2Z/komorebi/master/schema.bar.json",
+    "$schema": "https://raw.githubusercontent.com/LGUG2Z/komorebi/refs/tags/v0.1.36/schema.bar.json",
     "monitor": {
         "index": 2,
         "work_area_offset": {
@@ -32,13 +32,6 @@
                     "enable": true,
                     "hide_empty_workspaces": true,
                     "display": "AllIcons"
-                },
-                "configuration_switcher": {
-                    "enable": false,
-                    "configurations": {
-                        "one": "C:\\Users\\Csaba\\komorebi.json",
-                        "two": "C:\\Users\\Csaba\\komorebi.json"
-                    }
                 },
                 "layout": {
                     "enable": true,

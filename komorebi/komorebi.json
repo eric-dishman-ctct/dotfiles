@@ -1,11 +1,11 @@
 {
-    "$schema": "https://raw.githubusercontent.com/LGUG2Z/komorebi/v0.1.35/schema.json",
+    "$schema": "https://raw.githubusercontent.com/LGUG2Z/komorebi/v0.1.36/schema.json",
     "app_specific_configuration_path": "$Env:KOMOREBI_CONFIG_HOME/applications.json",
     "window_hiding_behaviour": "Cloak",
     "mouse_follows_focus": true,
     "cross_monitor_move_behaviour": "Insert",
-    "transparency": true,
-    "transparency_alpha": 250,
+    "transparency": false,
+    "transparency_alpha": 200,
     "default_workspace_padding": 5,
     "default_container_padding": 5,
     "window_container_behaviour": "Append",
@@ -33,8 +33,8 @@
         }
     },
     "animation": {
-        "duration": 250,
-        "enabled": false,
+        "duration": 100,
+        "enabled": true,
         "style": "EaseInOutQuad",
         "fps": 90
     },
@@ -189,6 +189,16 @@
             "kind": "Title",
             "id": "wezterm",
             "matching_strategy": "Equals"
+        },
+        {
+            "kind": "Path",
+            "id": "C:\\MATLAB\\R2021b\\bin\\win64\\MATLABWindow.exe",
+            "matching_strategy": "Equals"
+        },
+        {
+            "kind": "Exe",
+            "id": "MATLABWindow",
+            "matching_strategy": "Contains"
         }
     ]
 }
