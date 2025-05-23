@@ -105,24 +105,40 @@ function m24b {C:\MATLAB\R2024b\bin\matlab.exe}
 function nf {nvim(fd -H -t f | fzf)}
 function nd {nvim(fd -H -t d | fzf)}
 
-function zd {
-  $directory = fd -H -t d | fzf --prompt=" Search for path 󰄾 " --height=~50% --layout=reverse --border --exit-0
-
-  if ([string]::IsNullOrEmpty($directory))
-  {
-    Write-Output "Nothing selected"
-    break
-  }
-
-  z $directory
-
-}
-
 # Obsidian workflow
 $Vault = "DishVault"
 function oo   {Set-Location -Path ("$Env:USERPROFILE" + "\" + $Vault)}
 function oib  {Set-Location -Path ("$Env:USERPROFILE" + "\" + $Vault + "\Inbox")}
 
 . "$HOME\scripting\custom_prompt.ps1"
+
+# 1. Initialize Zoxide (this might create 'z' and 'zi' aliases/functions)
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
+
+# 2. Remove the 'z' alias created by zoxide (if it's an alias)
+If (Get-Alias z -ErrorAction SilentlyContinue) {
+    Write-Verbose "Removing existing 'z' alias before defining custom z function."
+    Remove-Item Alias:z -Force -ErrorAction SilentlyContinue
+}
+
+# 3. Remove the 'zi' alias created by zoxide (if it's an alias)
+#    Or, if zoxide defines 'zi' as a function, our script's 'zi' function will override it
+#    if sourced after. Removing an alias is safer if zoxide's 'zi' is an alias.
+If (Get-Alias zi -ErrorAction SilentlyContinue) {
+    Write-Verbose "Removing existing 'zi' alias before defining custom zi function."
+    Remove-Item Alias:zi -Force -ErrorAction SilentlyContinue
+}
+
+# 4. Source your script which defines your custom 'z' and 'zi' functions
+$ScriptPath = "$Env:USERPROFILE\scripting\super_charged_directory_switcher.ps1"
+. $ScriptPath
+
+# 5. Setup your other aliases for super_charged_directory_switcher
+Set-Alias -Name zd          -Value Invoke-SmartDirectoryChange
+Set-Alias -Name zf          -Value Invoke-DirectoryHistoryForward     -Option AllScope 
+Set-Alias -Name zb          -Value Invoke-DirectoryHistoryBack        -Option AllScope
+Set-Alias -Name zs          -Value Invoke-DirectoryHistorySearch     -Option AllScope
+# No need to alias 'z' or 'zi' here, as the functions in your script are named 'z' and 'zi'.
+
+Write-Host "Custom z, zi, zd, zf, zb, zs aliases and functions loaded." -ForegroundColor Green
 #Set-PSDebug -Trace 0
