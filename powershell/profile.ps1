@@ -135,7 +135,7 @@ $ScriptPath = "$Env:USERPROFILE\scripting\super_charged_directory_switcher.ps1"
 
 # 5. Setup your other aliases for super_charged_directory_switcher
 Set-Alias -Name zd          -Value Invoke-SmartDirectoryChange
-Set-Alias -Name zf          -Value Invoke-DirectoryHistoryForward     -Option AllScope 
+Set-Alias -Name zf          -Value Invoke-DirectoryHistoryForward     -Option AllScope
 Set-Alias -Name zb          -Value Invoke-DirectoryHistoryBack        -Option AllScope
 Set-Alias -Name zs          -Value Invoke-DirectoryHistorySearch     -Option AllScope
 # No need to alias 'z' or 'zi' here, as the functions in your script are named 'z' and 'zi'.

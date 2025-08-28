@@ -1,4 +1,7 @@
-(defcfg process-unmapped-keys yes)
+(defcfg
+    process-unmapped-keys yes
+    concurrent-tap-hold yes
+)
 
 ;; defsrc is still necessary
 (defsrc)
@@ -7,9 +10,30 @@
   hold-time 200
 )
 (defalias
-escholdcaps (tap-hold-release $tap-time $hold-time esc lctl)
+escholdcaps (tap-hold-press $tap-time $hold-time esc  lctl)
+aholdwin    (tap-hold-press $tap-time $hold-time a    lmet)
+oholdalt    (tap-hold-press $tap-time $hold-time o    lalt)
+eholdctrl   (tap-hold-press $tap-time $hold-time e    lctl)
+uholdshift  (tap-hold-press $tap-time $hold-time u    lsft)
+hholdshift  (tap-hold-press $tap-time $hold-time h    rsft)
+tholdctrl   (tap-hold-press $tap-time $hold-time t    rctl)
+nholdalt    (tap-hold-press $tap-time $hold-time n    ralt)
+sholdwin    (tap-hold-press $tap-time $hold-time s    rmet)
+holdlrld    (tap-hold-press $tap-time $hold-time 1    lrld)
 )
 (deflayermap (base-layer)
   caps @escholdcaps
-  esc caps
+  esc  caps
+;;  a    @aholdwin
+  ;; o    @oholdalt
+  ;; e    @eholdctrl
+  ;; u    @uholdshift
+  ;; h    @hholdshift
+  ;; t    @tholdctrl
+  ;; n    @nholdalt
+  ;; s    @sholdwin
+  1    @holdlrld
+  
+;;	lalt lctl
+;;	ralt lalt
 )

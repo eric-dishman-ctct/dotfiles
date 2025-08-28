@@ -76,3 +76,75 @@ ctrl + alt + shift + 2  : komorebic send-to-monitor 0
 # Focus monitors
 alt + shift + p         : komorebic cycle-monitor previous 
 alt + n         	    : komorebic cycle-monitor next 
+
+# -----------------------------------------------------------------------------
+# Bindings with Emacs-specific overrides
+#
+# The "Ignore" command prevents whkd from capturing the hotkey when Emacs is
+# the active window, allowing Emacs to handle it.
+# -----------------------------------------------------------------------------
+
+# Manipulate windows
+alt + t [
+    Default           : komorebic toggle-float
+    *GNU Emacs*       : Ignore
+]
+
+alt + shift + t [
+    Default           : komorebic toggle-workspace-layer
+    *GNU Emacs*       : Ignore
+]
+
+alt + shift + f [
+    Default           : komorebic toggle-monocle
+    *GNU Emacs*       : Ignore
+]
+
+# Window manager options
+alt + p [
+    Default           : komorebic toggle-pause
+    *GNU Emacs*       : Ignore
+]
+
+# Layouts
+alt + x [
+    Default           : komorebic flip-layout horizontal
+    *GNU Emacs*       :Ignore
+]
+
+alt + y [
+    Default           : komorebic flip-layout vertical
+    *GNU Emacs*       : Ignore
+]
+
+alt + b [
+    Default           : komorebic cycle-layout next
+    *GNU Emacs*       : Ignore
+]
+
+# Stack windows
+alt + u [
+    Default           : komorebic unstack
+    *GNU Emacs*				: Ignore
+]
+
+alt + w [
+    Default           : komorebic cycle-stack previous
+    *GNU Emacs*       : Ignore
+]
+
+alt + v [
+    Default           : komorebic cycle-stack next
+    *GNU Emacs*       : Ignore
+]
+
+# Focus monitors
+alt + n [
+    Default           : komorebic cycle-monitor next
+    *GNU Emacs*       : Ignore
+]
+
+alt + shift + p [
+    Default           : komorebic cycle-monitor previous
+    *GNU Emacs*       : Ignore
+]
