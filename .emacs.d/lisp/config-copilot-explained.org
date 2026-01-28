@@ -1,0 +1,112 @@
+#+TITLE: How MATLAB Language Server and copilot.el Interact
+#+AUTHOR: Auto-generated
+#+OPTIONS: toc:2 num:t
+
+* Overview
+
+Based on your configuration, you have:
+- *Eglot* connecting to the MATLAB language server for =matlab-ts-mode=
+- *Corfu* for displaying LSP completions
+- *copilot.el* for AI-powered ghost text completions
+
+* They Work at Different Layers
+
+#+begin_example
+┌────────────────────────────────────────────────────────────────┐
+│                    You Type Code                               │
+└────────────────────────────────────────────────────────────────┘
+                              │
+              ┌───────────────┴───────────────┐
+              ▼                               ▼
+┌─────────────────────────┐     ┌─────────────────────────────┐
+│   MATLAB LSP (Eglot)    │     │      copilot.el             │
+├─────────────────────────┤     ├─────────────────────────────┤
+│ • Local analysis        │     │ • Cloud AI (GitHub)         │
+│ • Fast, deterministic   │     │ • Slower, creative          │
+│ • Symbol completions    │     │ • Line/block completions    │
+│ • Function signatures   │     │ • Context-aware suggestions │
+│ • Variable names        │     │ • Code generation           │
+│ • Syntax checking       │     │ • Pattern completion        │
+└─────────────────────────┘     └─────────────────────────────┘
+              │                               │
+              ▼                               ▼
+┌─────────────────────────┐     ┌─────────────────────────────┐
+│   Corfu Popup Menu      │     │   Ghost Text Overlay        │
+│   (Manual: C-M-i)       │     │   (Automatic after delay)   │
+└─────────────────────────┘     └─────────────────────────────┘
+#+end_example
+
+* What Each Provides
+
+| Feature        | MATLAB LSP                      | copilot.el                        |
+|----------------+---------------------------------+-----------------------------------|
+| *Trigger*      | Manual (=C-M-i=) or after typing  | Automatic (after idle delay)      |
+| *Display*      | Corfu popup with list           | Inline ghost text                 |
+| *Completions*  | =myVariable=, =myFunction=          | Entire lines/blocks of code       |
+| *Source*       | Static analysis of your code    | AI trained on code patterns       |
+| *Speed*        | Fast (local)                    | Slower (network round-trip)       |
+| *Scope*        | Current workspace symbols       | Contextual code generation        |
+
+* Practical Example in MATLAB
+
+Say you're writing a MATLAB file:
+
+#+begin_src matlab
+function result = processData(data)
+    % Filter the data
+    filtered = |  ← cursor here
+#+end_src
+
+** MATLAB LSP (via Corfu) would offer:
+- =data= (the parameter)
+- =filter= (built-in function)
+- =filtfilt= (built-in function)
+- Other symbols in scope
+
+** copilot.el might suggest (as ghost text):
+#+begin_src matlab
+    filtered = data(data > 0);  % Remove negative values
+#+end_src
+
+* No Conflict - Different UI Elements
+
+1. *Corfu popup* = A menu you navigate with =C-n=/=C-p=, select with =TAB=
+2. *Copilot overlay* = Gray ghost text after cursor, accept with =TAB=
+
+Your config already handles potential conflicts:
+
+#+begin_src emacs-lisp
+;; Disable copilot when Corfu popup is visible
+(add-to-list 'copilot-disable-predicates
+             (lambda () (and (boundp 'corfu--frame) corfu--frame)))
+#+end_src
+
+This means:
+- When you trigger Corfu (=C-M-i=), copilot suggestions hide
+- When Corfu closes, copilot suggestions can appear again
+
+* Typical Workflow
+
+| Task                                    | Best Tool                           |
+|-----------------------------------------+-------------------------------------|
+| Complete a variable name                | *LSP/Corfu* - knows exact symbols   |
+| Complete a MATLAB built-in function     | *LSP/Corfu* - has full API          |
+| Write a for-loop body                   | *copilot.el* - generates code       |
+| Implement an algorithm from a comment   | *copilot.el* - understands intent   |
+| Check function signature                | *LSP* - precise documentation       |
+| Generate boilerplate code               | *copilot.el* - pattern matching     |
+
+* Summary
+
+They're *complementary, not competing*:
+
+- *LSP* = Your precise, local expert on MATLAB syntax and your codebase
+- *copilot.el* = Your AI assistant that suggests what to write next
+
+Use LSP completions when you know /what/ you want but not the exact name. Use Copilot when you want the AI to /generate/ code based on context and comments.
+
+* Related Configuration Files
+
+- [[file:config-copilot.el][config-copilot.el]] - Copilot and Copilot Chat configuration
+- [[file:config-completions.el][config-completions.el]] - Corfu, Vertico, Orderless setup
+- [[file:config-lsp.el][config-lsp.el]] - Eglot and MATLAB LSP configuration
