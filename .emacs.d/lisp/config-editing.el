@@ -3,8 +3,6 @@
 ;;; Commentary:
 
 ;;; Code:
-;;(setq next-line-add-newlines t)
-
 ;; Line ending configuration
 ;; Preserve original line endings when opening files, don't auto-convert
 (setq-default buffer-file-coding-system 'undecided-unix)

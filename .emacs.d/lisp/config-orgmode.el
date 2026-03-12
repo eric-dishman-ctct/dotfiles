@@ -3,8 +3,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq org-directory "~/org")
-;; (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
-;;(setq org-default-notes-file "~/OrgFiles/notes.org")
 
 ;; Show orgmode where agenda data is located
 (setq org-agenda-files '("~/org/agenda"))
@@ -154,34 +152,6 @@
                       (when (display-graphic-p)
                         (org-bullets-mode 1)))))
 
-;; --- Function to set up graphical Org features ---
-;; (defun my-setup-org-graphics ()
-;;   "Apply graphical org settings to a new frame."
-;;   (let* ((variable-tuple
-;;         (cond ((x-list-fonts "ETBembo")         '(:font "ETBembo"))
-;;               ((x-list-fonts "Source Sans Pro") '(:font "Source Sans Pro"))
-;;               ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))
-;;               ((x-list-fonts "Verdana")         '(:font "Verdana"))
-;;               ((x-family-fonts "Sans Serif")    '(:family "Sans Serif"))
-;;               (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro."))))
-;;        (base-font-color     (face-foreground 'default nil 'default))
-;;        (headline           `(:inherit default :weight bold :foreground ,base-font-color)))
-
-;;   (custom-theme-set-faces
-;;    'user
-;;    `(org-level-8 ((t (,@headline ,@variable-tuple))))
-;;    `(org-level-7 ((t (,@headline ,@variable-tuple))))
-;;    `(org-level-6 ((t (,@headline ,@variable-tuple))))
-;;    `(org-level-5 ((t (,@headline ,@variable-tuple))))
-;;    `(org-level-4 ((t (,@headline ,@variable-tuple :height 1.0))))
-;;    `(org-level-3 ((t (,@headline ,@variable-tuple :height 1.05))))
-;;    `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.15))))
-;;    `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.3))))
-;;    `(org-document-title ((t (,@variable-tuple
-;; 			     :weight bold
-;; 			     :foreground ,base-font-color
-;; 			     :height 1.6
-;; 			     :underline nil)))))))
 (defun my/setup-org-graphics ()
   "Apply graphical Org Mode faces."
   (let* ((base-font-color     (face-foreground 'default nil 'default))
@@ -215,13 +185,9 @@
       '(
         ("TODO" . (:foreground "GoldenRod" :weight bold))
 	("NEXT" . (:foreground "Cyan" :weight bold))
-        ;;("PLANNING" . (:foreground "DeepPink" :weight bold))
-        ;;("IN-PROGRESS" . (:foreground "Cyan" :weight bold))
-        ;;("VERIFYING" . (:foreground "DarkOrange" :weight bold))
 	("WAITING" . (:foreground "DarkOrange" :weight bold))
 	("BLOCKED" . (:foreground "Red" :weight bold))
         ("DONE" . (:foreground "LimeGreen" :weight bold))
-        ;;("OBE" . (:foreground "LimeGreen" :weight bold))
         ("WONT-DO" . (:foreground "LimeGreen" :weight bold))
         )))
 
@@ -229,10 +195,6 @@
 (add-hook 'my-graphical-setup-hook #'my/setup-org-todo-faces)
 
 
-;; This is the non-graphical part of TODO keywords. Runs always.
-;; (setq org-todo-keywords
-;;       '((sequence "TODO(t)" "PLANNING(p)" "IN-PROGRESS(i@/!)" "VERIFYING(v!)" "BLOCKED(b@)"  "|" "DONE(d!)" "OBE(o@!)" "WONT-DO(w@/!)" )
-;;         ))
 (setq org-todo-keywords
       '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
         (sequence "WAITING(w@/!)" "BLOCKED(b@/!)" "|" "WONT-DO(c@/!)")))
@@ -255,19 +217,19 @@
 
 
 
-;; Wrap lines in org mode so things are easier to read
-(add-hook 'org-mode-hook 'visual-line-mode)
 ;; Use variable pitch font for Org body text
 (add-hook 'org-mode-hook 'variable-pitch-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Load additional org mode packages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (use-package compat
-;;   :ensure nil)
+(use-package compat
+  :disabled t
+  :ensure nil)
 
-;; (use-package org-timeblock
-;;   :ensure nil)
+(use-package org-timeblock
+  :disabled t
+  :ensure nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Return the package

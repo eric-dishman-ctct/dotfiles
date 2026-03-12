@@ -16,6 +16,4 @@ Each element is (KEY . COMMAND), where KEY is passed to `kbd'."
  '("C-x C-k" . kill-region)
  '("C-c C-k" . kill-region))
 
-;;(global-set-key "\C-w" 'backward-kill-word)
-
 (provide 'config-bindings)

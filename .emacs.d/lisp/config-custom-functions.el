@@ -109,23 +109,17 @@ Version: 2020-11-20 2022-08-19 2023-06-26 2023-09-09"
      (if buffer-file-name buffer-file-name default-directory))))
     (cond
      ((eq system-type 'windows-nt)
-      (shell-command (format "PowerShell -Command invoke-item '%s'" (expand-file-name default-directory )))
-      ;; (let ((xcmd (format "Explorer /select,%s"
-      ;;                     (replace-regexp-in-string "/" "\\" xpath t t)
-      ;;                     ;; (shell-quote-argument (replace-regexp-in-string "/" "\\" xpath t t ))
-      ;;                     )))
-      ;;   (shell-command xcmd))
-      )
+       (shell-command (format "PowerShell -Command invoke-item '%s'" (expand-file-name default-directory )))
+       )
      ((eq system-type 'darwin)
       (shell-command
        (concat "open -R " (shell-quote-argument xpath))))
      ((eq system-type 'gnu/linux)
       (call-process shell-file-name nil 0 nil
         shell-command-switch
-        (format "%s %s"
+       (format "%s %s"
           "xdg-open"
           (file-name-directory xpath)))
-      ;; (shell-command "xdg-open .") ;; 2013-02-10 this sometimes froze emacs till the folder is closed. eg with nautilus
       ))))
 
 (use-package dired
