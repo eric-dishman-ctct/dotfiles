@@ -18,7 +18,7 @@
 ;;------------------------------------------------------------------------------
 ;; Imperative Graphical Settings
 ;;------------------------------------------------------------------------------
-(defun my-setup-ui-graphics ()
+(defun vader/setup-ui-graphics ()
   "Apply graphical UI settings like fonts, themes, and faces."
 
   (tool-bar-mode -1)
@@ -31,8 +31,8 @@
                         :font "JetBrainsMono Nerd Font"
                         ;; Set height relative to the default face's height
                         ;; This keeps code and text balanced.
-                        :height (if (boundp 'my/default-font-height)
-                                    my/default-font-height
+                        :height (if (boundp 'vader/default-font-height)
+                                    vader/default-font-height
                                   140)))
   
   ;; 2. Set the (variable-pitch) font for UI and Org text
@@ -61,8 +61,8 @@
 
 
 ;; --- "Provide" our function to the custom hook ---
-;; (my-graphical-setup-hook is defined in init.el)
-(add-hook 'my-graphical-setup-hook #'my-setup-ui-graphics)
+;; (vader/graphical-setup-hook is defined in init.el)
+(add-hook 'vader/graphical-setup-hook #'vader/setup-ui-graphics)
 
 ;;------------------------------------------------------------------------------
 ;; Graphical Packages (Declarative)
@@ -137,7 +137,7 @@
   (olivetti-body-width 100)
   (olivetti-style nil))
 
-(defun my/reading-mode()
+(defun vader/reading-mode()
   "Toggle reading mode for distraction-free reading of org and markdown files."
   (interactive)
   (if olivetti-mode
@@ -151,7 +151,7 @@
       (message "Reading mode enabled"))))
 
 ;; Automatically enable reading mode for org and markdown files
-(defun my/maybe-enable-reading-mode()
+(defun vader/maybe-enable-reading-mode()
   "Automatically enable reading mode for org and markdown files"
   (when (or (derived-mode-p 'org-mode)
 	    (derived-mode-p 'markdown-mode)
@@ -160,9 +160,9 @@
     (display-line-numbers-mode -1)))
 
 ;; Hook for automatic reading mode
-(add-hook 'find-file-hook 'my/maybe-enable-reading-mode)
+(add-hook 'find-file-hook 'vader/maybe-enable-reading-mode)
 
-(global-set-key (kbd "C-c R") 'my/reading-mode)
+(global-set-key (kbd "C-c R") 'vader/reading-mode)
 
 ;;------------------------------------------------------------------------------
 ;; XREF Buffer
@@ -190,38 +190,38 @@
 ;; Region Font Customization
 ;;------------------------------------------------------------------------------
 
-(defun my/set-region-variable-pitch ()
+(defun vader/set-region-variable-pitch ()
   "Set selected region to variable-pitch font (Aporetic Serif with normal text color)."
   (interactive)
   (if (use-region-p)
       (let ((ov (make-overlay (region-beginning) (region-end) nil nil nil)))
         (overlay-put ov 'face '(:inherit variable-pitch))
-        (overlay-put ov 'my-custom-font t)
+        (overlay-put ov 'vader/custom-font t)
         (message "Applied variable-pitch (Aporetic Serif) to region"))
     (message "No active region")))
 
-(defun my/set-region-fixed-pitch ()
+(defun vader/set-region-fixed-pitch ()
   "Set selected region to fixed-pitch font (JetBrains Mono) with code block styling."
   (interactive)
   (if (use-region-p)
       (let ((ov (make-overlay (region-beginning) (region-end) nil nil nil)))
         ;; Inherit from org-code which already has the right styling
         (overlay-put ov 'face '(:inherit org-code))
-        (overlay-put ov 'my-custom-font t)
+        (overlay-put ov 'vader/custom-font t)
         (message "Applied fixed-pitch (JetBrains Mono) with code styling to region"))
     (message "No active region")))
 
-(defun my/set-region-org-table ()
+(defun vader/set-region-org-table ()
   "Set selected region to org-table font (Aporetic Serif Mono with normal text color)."
   (interactive)
   (if (use-region-p)
       (let ((ov (make-overlay (region-beginning) (region-end) nil nil nil)))
         (overlay-put ov 'face '(:inherit org-table))
-        (overlay-put ov 'my-custom-font t)
+        (overlay-put ov 'vader/custom-font t)
         (message "Applied org-table (Aporetic Serif Mono) to region"))
     (message "No active region")))
 
-(defun my/remove-region-font ()
+(defun vader/remove-region-font ()
   "Remove custom font overlays from the selected region or at point."
   (interactive)
   (let* ((start (if (use-region-p) (region-beginning) (point)))
@@ -229,17 +229,17 @@
          (removed 0))
     ;; Remove overlays that overlap with the region/point
     (dolist (ov (overlays-in start end))
-      (when (overlay-get ov 'my-custom-font)
+      (when (overlay-get ov 'vader/custom-font)
         (delete-overlay ov)
         (setq removed (1+ removed))))
     ;; Also check overlays at the exact point
     (dolist (ov (overlays-at (point)))
-      (when (overlay-get ov 'my-custom-font)
+      (when (overlay-get ov 'vader/custom-font)
         (delete-overlay ov)
         (setq removed (1+ removed))))
     (message "Removed %d font overlay(s)" removed)))
 
-(defun my/remove-tildes-around-region ()
+(defun vader/remove-tildes-around-region ()
   "Remove concealed tildes (~) on either side of the selected region.
 If no region is active, search forward from point for matching tildes."
   (interactive)

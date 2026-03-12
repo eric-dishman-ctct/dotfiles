@@ -2,7 +2,7 @@
 
 ;; This variable defines a COMPLETE and CORRECTED set of font-lock rules for C.
 ;; It does not depend on any c-ts-mode internal variables.
-(defvar my-complete-c-ts-font-lock-rules
+(defvar vader/complete-c-ts-font-lock-rules
   '((comment) @font-lock-comment-face
     (string_literal) @font-lock-string-face
     (system_lib_string) @font-lock-string-face
@@ -61,9 +61,9 @@
     (escape_sequence) @font-lock-warning-face))
 
 ;; This function now simply overwrites the rules with our self-contained list.
-(defun my-fix-c-ts-mode-queries ()
+(defun vader/fix-c-ts-mode-queries ()
   "Forcefully overwrite the font-lock rules with a corrected version."
-  (setq-local treesit-font-lock-rules my-complete-c-ts-font-lock-rules))
+  (setq-local treesit-font-lock-rules vader/complete-c-ts-font-lock-rules))
 
 (provide 'tree-sitter-query-fixes)
 

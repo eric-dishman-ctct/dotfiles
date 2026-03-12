@@ -25,7 +25,7 @@
 
 ;; Close dedicated frames when closing org-capture
 ;; This is behavioral, not graphical, so it can run always.
-(defun my-org-capture-delete-frame-hook ()
+(defun vader/org-capture-delete-frame-hook ()
   "Delete the capture frame if it's not the last one."
   ;; This safety check ensures you don't accidentally
   ;; close your *main* Emacs window.
@@ -33,8 +33,8 @@
     (delete-frame)))
 
 ;; Run our function after capture is saved OR aborted
-(add-hook 'org-capture-after-finalize-hook #'my-org-capture-delete-frame-hook)
-(add-hook 'org-capture-aborted-hook #'my-org-capture-delete-frame-hook)
+(add-hook 'org-capture-after-finalize-hook #'vader/org-capture-delete-frame-hook)
+(add-hook 'org-capture-aborted-hook #'vader/org-capture-delete-frame-hook)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Templates (Non-Graphical)
@@ -104,7 +104,7 @@
 (setq org-outline-path-complete-in-steps nil)
 
 ;; Custom code to refile a subtree to a new user defined file
-(defun my/org-refile-to-new-file ()
+(defun vader/org-refile-to-new-file ()
   "Move the current subtree to a new file. 
    Prompts for a filename and directory."
   (interactive)
@@ -133,7 +133,7 @@
     (message "Refiled to %s" filename)))
 
 ;; Bind it to a key (e.g., C-c R)
-(global-set-key (kbd "C-c r") 'my/org-refile-to-new-file)
+(global-set-key (kbd "C-c r") 'vader/org-refile-to-new-file)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Archive settings (Non-Graphical)
@@ -152,7 +152,7 @@
                       (when (display-graphic-p)
                         (org-bullets-mode 1)))))
 
-(defun my/setup-org-graphics ()
+(defun vader/setup-org-graphics ()
   "Apply graphical Org Mode faces."
   (let* ((base-font-color     (face-foreground 'default nil 'default))
          (headline           `(:inherit variable-pitch :weight bold :foreground ,base-font-color))
@@ -175,11 +175,11 @@
                            '(:inherit fixed-pitch)))))))))
 
 ;; "Provide" this function to the custom hook
-(add-hook 'my-graphical-setup-hook #'my/setup-org-graphics)
+(add-hook 'vader/graphical-setup-hook #'vader/setup-org-graphics)
 
 
 ;; --- Function to set up graphical TODO faces ---
-(defun my/setup-org-todo-faces ()
+(defun vader/setup-org-todo-faces ()
   "Apply graphical faces to TODO keywords."
   (setq org-todo-keyword-faces
       '(
@@ -192,7 +192,7 @@
         )))
 
 ;; "Provide" this function to the custom hook
-(add-hook 'my-graphical-setup-hook #'my/setup-org-todo-faces)
+(add-hook 'vader/graphical-setup-hook #'vader/setup-org-todo-faces)
 
 
 (setq org-todo-keywords

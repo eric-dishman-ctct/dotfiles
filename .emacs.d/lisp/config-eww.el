@@ -2,7 +2,7 @@
 (use-package eww
   :ensure nil
   :bind (:map eww-mode-map
-              ("M-p" . my/previous-line)
-              ("M-n" . my/next-line)))
+              ("M-p" . vader/previous-line)
+              ("M-n" . vader/next-line)))
 
 (provide 'config-eww)

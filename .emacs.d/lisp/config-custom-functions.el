@@ -1,29 +1,29 @@
-(defcustom my/default-font-height 140
+(defcustom vader/default-font-height 140
   "Default font height for graphical frames.
 Value is in 1/10 pt units (e.g., 140 = 14pt)."
   :type 'integer
   :group 'faces)
 
-(defun my/apply-default-font-height ()
-  "Apply `my/default-font-height' to default and fixed-pitch faces."
+(defun vader/apply-default-font-height ()
+  "Apply `vader/default-font-height' to default and fixed-pitch faces."
   (interactive)
   (if (display-graphic-p)
       (progn
-        (set-face-attribute 'default nil :height my/default-font-height)
+        (set-face-attribute 'default nil :height vader/default-font-height)
         (set-face-attribute 'fixed-pitch nil :height 1.0)
-        (message "Default font height set to %d" my/default-font-height))
+        (message "Default font height set to %d" vader/default-font-height))
     (message "No graphical frame active; saved font height %d for future GUI frames"
-             my/default-font-height)))
+             vader/default-font-height)))
 
-(defun my/set-default-font-height (height)
+(defun vader/set-default-font-height (height)
   "Prompt for HEIGHT and apply it as the new default font height.
 HEIGHT is in 1/10 pt units (e.g., 140 = 14pt)."
   (interactive (list (read-number "Default font height (e.g. 140 = 14pt): "
-                                   my/default-font-height)))
-  (setq my/default-font-height height)
-  (my/apply-default-font-height))
+                                   vader/default-font-height)))
+  (setq vader/default-font-height height)
+  (vader/apply-default-font-height))
 
-(defun my/insert-tree-outline (dir)
+(defun vader/insert-tree-outline (dir)
   "Inserts a directory tree as collapsible Org-mode headlines.
 The selected DIR becomes the Level 1 headline, with contents nested below."
   (interactive "DDirectory: ")
@@ -56,7 +56,7 @@ The selected DIR becomes the Level 1 headline, with contents nested below."
             ;; Insert the headline
             (insert (format "%s %s\n" stars display-name))))))))
 
-(defun my/insert-tree (dir)
+(defun vader/insert-tree (dir)
   "Prompts for a directory and inserts a clean UTF-8 tree into an Org src block."
   (interactive "DDirectory: ")
   (let ((cmd (format "tree -n --charset=utf-8 '%s' | sed 's/\\xc2\\xa0/ /g'"
