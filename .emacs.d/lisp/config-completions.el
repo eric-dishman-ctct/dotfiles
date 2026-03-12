@@ -6,15 +6,15 @@
 
 ;; Vertical completion UI
 (use-package vertico
-  :init
-  (vertico-mode)
-  :config
-  (set-face-attribute 'vertico-current nil
-		      :underline nil
-		      :background "#404040"))
+  :ensure t
+  :custom
+  (vertico-mode t)
+  :custom-face
+  (vertico-current ((t (:underline nil :background "#404040")))))
 
 ;; Fuzzy matching for vertico
 (use-package orderless
+  :ensure t
   :config
   (setq completion-styles '(orderless basic)
 	completion-category-defaults nil
@@ -22,27 +22,31 @@
 
 ;; Annotations in minibuffer
 (use-package marginalia
-  :init
-  (marginalia-mode))
+  :ensure t
+  :custom
+  (marginalia-mode t))
 
 ;; Enhanced commands
 (use-package consult
-  :bind (("C-s" . consult-line)      ; Better search
-	 ("C-x b" . consult-buffer)  ; Better buffer switching
-	 ("C-c i" . consult-imenu)   ; Better imenu
-	 ("M-y" . consult-yank-pop)  ; Better kill-ring
-	 ("C-c g" . consult-grep)    ; Grep in project
-	 ("C-c f" . consult-find)))  ; Better find files
+  :ensure t
+  :bind (:map global-map
+	      ("C-s" . consult-line)      ; Better search
+	      ("C-x b" . consult-buffer)  ; Better buffer switching
+	      ("C-c i" . consult-imenu)   ; Better imenu
+	      ("M-y" . consult-yank-pop)  ; Better kill-ring
+	      ("C-c g" . consult-grep)    ; Grep in project
+	      ("C-c f" . consult-find)))  ; Better find files
 
 ;; Completion popup
 (use-package corfu
-  :init
-  (global-corfu-mode)
-  :config
-  (setq corfug-auto nil) ; Maunual trigger with C-M-i
-  (define-key corfu-map (kbd "C-n") #'corfu-next)
-  (define-key corfu-map (kbd "C-p") #'corfu-previous)
-  (define-key corfu-map (kbd "TAB") #'corfu-insert)
-  (define-key corfu-map (kbd "RET") #'corfu-insert))
+  :ensure t
+  :custom
+  (global-corfu-mode t)
+  (corfu-auto nil) ; Maunual trigger with C-M-i
+  :bind (:map corfu-map
+	      ("C-n" . corfu-next)
+	      ("C-p" . corfu-previous)
+	      ("TAB" . corfu-insert)
+	      ("RET" . corfu-insert)))
 
 (provide 'config-completions)
