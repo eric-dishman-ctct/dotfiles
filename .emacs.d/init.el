@@ -14,19 +14,21 @@ This is used to (re)apply graphical settings like fonts and colors that are skip
 
 (require 'config-packages)
 (require 'config-treesitter)
+(require 'config-custom-functions)
 (require 'config-ui)
 (require 'config-bindings)
 (require 'config-editing)
 (require 'config-completions)
 (require 'config-orgmode)
 (require 'config-lsp)
-(require 'config-copilot)
+;; (require 'config-copilot)
+(require 'config-eca)
 (require 'config-matlab)
-(require 'config-eww)
+;; (require 'config-eww)
+(require 'config-bibliography)
 (require 'config-denote)
-(require 'config-zk)
-(require 'config-reader)
-(require 'config-custom-functions)
+;; (require 'config-zk)
+;; (require 'config-reader)
 
 ;; --- Master function to run all graphical setup ---
 ;; This is the *only* function attache to the real Emacs hook.
@@ -34,7 +36,7 @@ This is used to (re)apply graphical settings like fonts and colors that are skip
   "Run all functions in 'my-graphical-setup-hook' on FRAME."
   (with-selected-frame frame
     (when (display-graphic-p)
-      (load-theme 'wombat t)
+      (load-theme 'github-dark-dimmed t)
       ;; This runs all the functions we added, e.g.:
       ;; - my-setup-ui-graphics
       ;; - my-setup-org-graphics

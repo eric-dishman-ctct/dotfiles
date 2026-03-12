@@ -1,3 +1,28 @@
+(defcustom my/default-font-height 140
+  "Default font height for graphical frames.
+Value is in 1/10 pt units (e.g., 140 = 14pt)."
+  :type 'integer
+  :group 'faces)
+
+(defun my/apply-default-font-height ()
+  "Apply `my/default-font-height' to default and fixed-pitch faces."
+  (interactive)
+  (if (display-graphic-p)
+      (progn
+        (set-face-attribute 'default nil :height my/default-font-height)
+        (set-face-attribute 'fixed-pitch nil :height 1.0)
+        (message "Default font height set to %d" my/default-font-height))
+    (message "No graphical frame active; saved font height %d for future GUI frames"
+             my/default-font-height)))
+
+(defun my/set-default-font-height (height)
+  "Prompt for HEIGHT and apply it as the new default font height.
+HEIGHT is in 1/10 pt units (e.g., 140 = 14pt)."
+  (interactive (list (read-number "Default font height (e.g. 140 = 14pt): "
+                                   my/default-font-height)))
+  (setq my/default-font-height height)
+  (my/apply-default-font-height))
+
 (defun my/insert-tree-outline (dir)
   "Inserts a directory tree as collapsible Org-mode headlines.
 The selected DIR becomes the Level 1 headline, with contents nested below."
