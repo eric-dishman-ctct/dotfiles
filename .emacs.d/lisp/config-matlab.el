@@ -1,16 +1,15 @@
 ;; MATLAB
-;; (use-package matlab-mode
-;;   :ensure t)
+(add-to-list 'load-path "/home/u_dishmej/.emacs.d/packages/Emacs-MATLAB-Mode")
 
-;; (use-package matlab-ts-mode
-;;   :ensure nil)
+(let ((matlab-bin "/home/u_dishmej/opt/MATLAB/R2024B/bin/matlab"))
+  (when (file-exists-p matlab-bin)
+    (setq matlab-shell-command matlab-bin)))
 
-(add-to-list 'load-path "/home/u_dishmej/source/Emacs-MATLAB-Mode")
+(when (locate-library "matlab-ts-mode")
+  (require 'matlab-ts-mode))
 
-(setq matlab-shell-command "/home/u_dishmej/opt/MATLAB/R2024b/bin/matlab")
-
-(require 'matlab-ts-mode)
-(require 'matlab-shell)
+(when (locate-library "matlab-shell")
+  (require 'matlab-shell))
 
 ;; Set tab sizes and types
 (add-hook 'matlab-ts-mode-hook

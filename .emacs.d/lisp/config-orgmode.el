@@ -2,12 +2,12 @@
 ;; General Settings (Non-Graphical)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq org-directory "~/OrgFiles")
+(setq org-directory "~/org")
 ;; (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
 ;;(setq org-default-notes-file "~/OrgFiles/notes.org")
 
 ;; Show orgmode where agenda data is located
-(setq org-agenda-files '("~/OrgFiles/agenda"))
+(setq org-agenda-files '("~/org/agenda"))
 
 ;; Record time when a todo is marked done
 (setq org-log-done 'time)
@@ -44,40 +44,40 @@
 (setq org-capture-templates
       '(
 	("g" "General To-Do"
-	 entry (file+headline "~/OrgFiles/agenda/inbox.org" "General Tasks")
+	 entry (file+headline "~/org/agenda/inbox.org" "General Tasks")
 	 "** TODO %?\n:PROPERTIES:\n:CAPTURED: %U\n:END:\n")
 
 	("d" "Development To-Do"
-	 entry (file+headline "~/OrgFiles/agenda/inbox.org" "Development Related Tasks")
+	 entry (file+headline "~/org/agenda/inbox.org" "Development Related Tasks")
 	 "** TODO %?\n:PROPERTIES:\n:CAPTURED: %U\n:END:\n")
 
 	("D" "Discussion Note"
-	 entry (file+headline "~/OrgFiles/notes/discussion-notes.org" "Discussions")
+	 entry (file+headline "~/org/agenda/discussion-notes.org" "Discussions")
 	 "** %?\n:PROPERTIES:\n:CAPTURED: %U\n:END:\n\n*** "
 	 :empty-lines 0)
 
 	("c" "Code To-Do"
-	 entry (file+headline "~/OrgFiles/agenda/inbox.org" "Code Tasks")
+	 entry (file+headline "~/org/agenda/inbox.org" "Code Tasks")
 	 "** TODO %?\n:PROPERTIES:\n:CAPTURED: %U\n:END\n%i\n%a\nProposed Solution: "
 	 :empty-lines 0)
 
 	("n" "Note"
-	 entry (file+headline "~/OrgFiles/notes/notes.org" "Notes")
+	 entry (file+headline "~/org/agenda/notes.org" "Notes")
 	 "** %?\n:PROPERTIES:\n:CAPTURED: %U\n:END:\n"
 	 :empty-lines 0)
 
 	("i" "Idea"
-	 entry (file+headline "~/OrgFiles/agenda/idea-factory.org" "Ideas")
+	 entry (file+headline "~/org/agenda/idea-factory.org" "Ideas")
 	 "** %?\n:PROPERTIES:\n:CAPTURED: %U\n:END:\n"
 	 :empty-lines 0)
 
 	("s" "Schedule Timeblock"
-	 entry (file+headline "~/OrgFiles/agenda/work.org" "Scheduling")
+	 entry (file+headline "~/org/agenda/work.org" "Scheduling")
 	 "** %?\n"
 	 :empty-lines 0)
 
 	("Q" "Question"
-	 entry (file+headline "~/OrgFiles/questions.org" "Questions")
+	 entry (file+headline "~/org/agenda/questions.org" "Questions")
 	 "** %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n*** Context\n\n\n*** Why this matters\n\n"
 	 :empty-lines 1)
 	)
@@ -142,7 +142,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Set the location for archived tasks
-(setq org-archive-location "~/OrgFiles/archive/archive.org::* From %s")
+(setq org-archive-location "~/org/archive/archive.org::* From %s")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Visual Settings (Refactored)
@@ -150,8 +150,9 @@
 
 (use-package org-bullets
   :ensure t
-  :if (display-graphic-p)
-  :hook (org-mode . org-bullets-mode))
+  :hook (org-mode . (lambda ()
+                      (when (display-graphic-p)
+                        (org-bullets-mode 1)))))
 
 ;; --- Function to set up graphical Org features ---
 ;; (defun my-setup-org-graphics ()
@@ -198,8 +199,10 @@
      `(org-level-2 ((t (,@headline2 :height 1.15))))
      `(org-level-1 ((t (,@headline :height 1.3))))
      `(org-document-title ((t (,@headline :height 1.0 :underline nil))))
-     ;; Add org-table face configuration here
-     `(org-table ((t (:font "Aporetic Serif Mono" :height 1.0 :inherit fixed-pitch)))))))
+      ;; Add org-table face configuration here
+      `(org-table ((t (,@(if (find-font (font-spec :name "Aporetic Serif Mono"))
+                             '(:font "Aporetic Serif Mono" :height 1.0 :inherit fixed-pitch)
+                           '(:inherit fixed-pitch)))))))))
 
 ;; "Provide" this function to the custom hook
 (add-hook 'my-graphical-setup-hook #'my/setup-org-graphics)
@@ -260,8 +263,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Load additional org mode packages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package org-timeblock
-  :ensure t)
+;; (use-package compat
+;;   :ensure nil)
+
+;; (use-package org-timeblock
+;;   :ensure nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Return the package

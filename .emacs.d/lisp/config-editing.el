@@ -57,8 +57,12 @@
   (interactive)
   (forward-line -10)
   (recenter))
-(keymap-global-set "M-p" #'my/previous-line)
-(keymap-global-set "M-n" #'my/next-line)
+(if (fboundp 'keymap-global-set)
+    (progn
+      (keymap-global-set "M-p" #'my/previous-line)
+      (keymap-global-set "M-n" #'my/next-line))
+  (global-set-key (kbd "M-p") #'my/previous-line)
+  (global-set-key (kbd "M-n") #'my/next-line))
 
 ;; Custom scroll other window
 (defun my/scroll-other-window-down ()
@@ -71,8 +75,12 @@
   (scroll-other-window '10))
 
 ;; Keybindings for scrolling other window
-(keymap-global-set "C-M-v" #'my/scroll-other-window-up)
-(keymap-global-set "C-M-S-v" #'my/scroll-other-window-down)
+(if (fboundp 'keymap-global-set)
+    (progn
+      (keymap-global-set "C-M-v" #'my/scroll-other-window-up)
+      (keymap-global-set "C-M-S-v" #'my/scroll-other-window-down))
+  (global-set-key (kbd "C-M-v") #'my/scroll-other-window-up)
+  (global-set-key (kbd "C-M-S-v") #'my/scroll-other-window-down))
   
 ;;; --- Modern Commenting Style ---
 ;; Use the 'indent' style, which creates ';;' at the start of lines.

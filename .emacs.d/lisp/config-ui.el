@@ -15,7 +15,8 @@
 
 ;; Set a transparent window
 ;;(add-to-list 'default-frame-alist '(alpha . 90))
-
+(add-to-list 'custom-theme-load-path
+             (expand-file-name "themes/" user-emacs-directory))
 ;;------------------------------------------------------------------------------
 ;; Imperative Graphical Settings
 ;;------------------------------------------------------------------------------
@@ -27,78 +28,53 @@
 
   ;; --- Font Configuration ---
   ;; 1. Set the default (fixed-pitch font) for ALL code, org-blocks, and shells
-  (set-face-attribute 'default nil
-                      :font "JetBrainsMono Nerd Font"
-                      ;; Set height relative to the default face's height
-                      ;; This keeps code and text balanced.
-                      :height 140)
+  (when (find-font (font-spec :name "JetBrainsMono Nerd Font"))
+    (set-face-attribute 'default nil
+                        :font "JetBrainsMono Nerd Font"
+                        ;; Set height relative to the default face's height
+                        ;; This keeps code and text balanced.
+                        :height (if (boundp 'my/default-font-height)
+                                    my/default-font-height
+                                  140)))
   
   ;; 2. Set the (variable-pitch) font for UI and Org text
-  (set-face-attribute 'variable-pitch nil
-                      :font "Aporetic Serif"
-                      :weight 'regular
-                      :height 1.0)
+  (when (find-font (font-spec :name "Aporetic Serif"))
+    (set-face-attribute 'variable-pitch nil
+                        :font "Aporetic Serif"
+                        :weight 'regular
+                        :height 1.0))
 
   ;; 3. Set fixed-pitch explicitly (good practice)
-  (set-face-attribute 'fixed-pitch nil
-                      :font "JetBrainsMono Nerd Font"
-                      :height 1.0)
+  (when (find-font (font-spec :name "JetBrainsMono Nerd Font"))
+    (set-face-attribute 'fixed-pitch nil
+                        :font "JetBrainsMono Nerd Font"
+                        :height 1.0))
 
   ;; 4. Set org-table face to use monospaced Aporetic font
-  (set-face-attribute 'org-table nil
-                      :font "Aporetic Serif Mono"
-                      :height 1.0
-                      :inherit nil)
+  (when (find-font (font-spec :name "Aporetic Serif Mono"))
+    (set-face-attribute 'org-table nil
+                        :font "Aporetic Serif Mono"
+                        :height 1.0
+                        :inherit nil))
 
   ;; --- End Font Configuration ---
 
   ;; Custom faces for rainbow-delimiters
-  (custom-set-faces
-   '(rainbow-delimiters-depth-1-face ((t (:foreground "#8BE9FD"))))
-   '(rainbow-delimiters-depth-2-face ((t (:foreground "#50FA7B"))))
-   '(rainbow-delimiters-depth-3-face ((t (:foreground "#FFB86C"))))
-   '(rainbow-delimiters-depth-4-face ((t (:foreground "#FF79C6"))))
-   '(rainbow-delimiters-depth-5-face ((t (:foreground "#BD93F9"))))
-   '(rainbow-delimiters-depth-6-face ((t (:foreground "#FF5555"))))
-   '(rainbow-delimiters-depth-7-face ((t (:foreground "#F1FA8C"))))
-   '(rainbow-delimiters-depth-8-face ((t (:foreground "#6272A4"))))
-   '(rainbow-delimiters-depth-9-face ((t (:foreground "#E6E6E6")))))
+  ;; (custom-set-faces
+  ;;  '(rainbow-delimiters-depth-1-face ((t (:foreground "#8BE9FD"))))
+  ;;  '(rainbow-delimiters-depth-2-face ((t (:foreground "#50FA7B"))))
+  ;;  '(rainbow-delimiters-depth-3-face ((t (:foreground "#FFB86C"))))
+  ;;  '(rainbow-delimiters-depth-4-face ((t (:foreground "#FF79C6"))))
+  ;;  '(rainbow-delimiters-depth-5-face ((t (:foreground "#BD93F9"))))
+  ;;  '(rainbow-delimiters-depth-6-face ((t (:foreground "#FF5555"))))
+  ;;  '(rainbow-delimiters-depth-7-face ((t (:foreground "#F1FA8C"))))
+  ;;  '(rainbow-delimiters-depth-8-face ((t (:foreground "#6272A4"))))
+  ;;  '(rainbow-delimiters-depth-9-face ((t (:foreground "#E6E6E6")))))
 
   ;; Enable doom-modeline imperatively
-  (doom-modeline-mode 1))
-;; (defun my-setup-ui-graphics ()
-;;   "Apply graphical UI settings like fonts, themes, and faces."
+  ;;  (doom-modeline-mode 1))
+  )
 
-;;   (tool-bar-mode -1)
-;;   (menu-bar-mode -1)
-;;   ;; Font Configuration
-;;   ;; (set-face-attribute 'default nil
-;;   ;;                     :font "JetBrainsMono Nerd Font"
-;;   ;;                     :weight 'semi-bold
-;;   ;;                     :height 140) ; 14 point = 140 in height units
-;;   (set-face-attribute 'default nil
-;; 		      :font "Saira"
-;; 		      :weight 'light
-;; 		      :height 140)
-;;   ;; Theme
-;;   ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/dracula")
-;;   ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/eldritch-emacs")
-;;   ;;(load-theme 'wombat t)
-
-;;   ;; Custom faces for rainbow-delimiters
-;;   ;; This is also graphical and should run after the theme.
-;;   (custom-set-faces
-;;    '(rainbow-delimiters-depth-1-face ((t (:foreground "#8BE9FD"))))
-;;    '(rainbow-delimiters-depth-2-face ((t (:foreground "#50FA7B"))))
-;;    '(rainbow-delimiters-depth-3-face ((t (:foreground "#FFB86C"))))
-;;    '(rainbow-delimiters-depth-4-face ((t (:foreground "#FF79C6"))))
-;;    '(rainbow-delimiters-depth-5-face ((t (:foreground "#BD93F9"))))
-;;    '(rainbow-delimiters-depth-6-face ((t (:foreground "#FF5555"))))
-;;    '(rainbow-delimiters-depth-7-face ((t (:foreground "#F1FA8C"))))
-;;    '(rainbow-delimiters-depth-8-face ((t (:foreground "#6272A4"))))
-;;    '(rainbow-delimiters-depth-9-face ((t (:foreground "#E6E6E6")))))
-
-;;   (doom-modeline-mode 1))
 
 ;; --- "Provide" our function to the custom hook ---
 ;; (my-graphical-setup-hook is defined in init.el)
@@ -112,50 +88,63 @@
   :ensure nil
   :hook
   (prog-mode . display-line-numbers-mode)
-  :config
-  (setq display-line-numbers-type 'relative))
+  :custom
+  (display-line-numbers-type 'relative))
 
 (use-package nerd-icons
   :ensure t)
 
 (use-package rainbow-delimiters
   :ensure t
-  :hook (prog-mode . rainbow-delimiters-mode))
+  :hook (prog-mode . rainbow-delimiters-mode)
+  :custom-face
+  (rainbow-delimiters-depth-1-face ((t (:foreground "#8BE9FD"))))
+  (rainbow-delimiters-depth-2-face ((t (:foreground "#50FA7B"))))
+  (rainbow-delimiters-depth-3-face ((t (:foreground "#FFB86C"))))
+  (rainbow-delimiters-depth-4-face ((t (:foreground "#FF79C6"))))
+  (rainbow-delimiters-depth-5-face ((t (:foreground "#BD93F9"))))
+  (rainbow-delimiters-depth-6-face ((t (:foreground "#FF5555"))))
+  (rainbow-delimiters-depth-7-face ((t (:foreground "#F1FA8C"))))
+  (rainbow-delimiters-depth-8-face ((t (:foreground "#6272A4"))))
+  (rainbow-delimiters-depth-9-face ((t (:foreground "#E6E6E6")))))
+
 
 (use-package keycast
   :ensure t)
-  
+
+(use-package switch-window
+  :ensure t
+  :bind
+  ( :map global-map
+    ("C-x o" . switch-window))
+  :custom
+  (switch-window-shortcut-style 'qwerty))
+
+; (global-set-key (kbd "C-x o") 'switch-window)
 ;;------------------------------------------------------------------------------
 ;; Status Line
 ;;------------------------------------------------------------------------------
-(use-package doom-modeline
-  :ensure t)
+;; (use-package doom-modeline
+;;   :ensure t)
 
-(with-eval-after-load 'which-func
-  (set-face-attribute 'which-func nil
-		      :inherit 'doom-modeline-buffer-file
-		      :forground nil)) ; use doom-modeline's colors
+;; (with-eval-after-load 'which-func
+;;   (set-face-attribute 'which-func nil
+;; 		      :inherit 'doom-modeline-buffer-file
+;; 		      :forground nil)) ; use doom-modeline's colors
 
 (use-package mixed-pitch
   :ensure t
   :hook
   (org-mode . mixed-pitch-mode)
-  :config
+  :custom
   ;; Ensure org-mode structural elements stay fixed-pitch
-  (setq mixed-pitch-set-height t)
-  
-  ;; Remove org-table from the fixed-pitch faces list
-  (setq mixed-pitch-fixed-pitch-faces
-        (delq 'org-table mixed-pitch-fixed-pitch-faces))
-  
-  ;; Add a hook to set org-table font after mixed-pitch-mode is enabled
-  (add-hook 'mixed-pitch-mode-hook
-            (lambda ()
-              (when (derived-mode-p 'org-mode)
-                (set-face-attribute 'org-table nil
-                                    :font "Aporetic Serif Mono"
-                                    :height 1.0
-                                    :inherit nil)))))
+  (mixed-pitch-set-height t)
+  :config
+  (when (find-font (font-spec :name "Aporetic Serif Mono"))
+    (set-face-attribute 'org-table nil
+                        :font "Aporetic Serif Mono"
+                        :height 1.0
+                        :inherit nil)))
 
 
 ;;------------------------------------------------------------------------------
@@ -164,9 +153,9 @@
 (use-package olivetti
   :ensure t
   :commands olivetti-mode
-  :config
-  (setq olivetti-body-width 100)
-  (setq olivetti-style nil))
+  :custom
+  (olivetti-body-width 100)
+  (olivetti-style nil))
 
 (defun my/reading-mode()
   "Toggle reading mode for distraction-free reading of org and markdown files."
