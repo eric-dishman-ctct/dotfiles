@@ -1,6 +1,8 @@
-;; Remap the keys in eww-mode-map
-(with-eval-after-load 'eww
-  (define-key eww-mode-map (kbd "M-p") 'my/previous-line)
-  (define-key eww-mode-map (kbd "M-n") 'my/next-line))
+;; Remap keys in `eww-mode-map`.
+(use-package eww
+  :ensure nil
+  :bind (:map eww-mode-map
+              ("M-p" . my/previous-line)
+              ("M-n" . my/next-line)))
 
 (provide 'config-eww)

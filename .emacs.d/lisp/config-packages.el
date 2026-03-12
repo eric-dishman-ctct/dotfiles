@@ -36,14 +36,11 @@
 (eval-when-compile
   (require 'use-package))
 
-;; Set a global default for use-package to always ensure packages are installed.
-;; This saves you from having to write :ensure t for every package.
-(setq use-package-always-ensure t)
-
 ;;------------------------------------------------------------------------------
 ;; Load some packages
 ;;------------------------------------------------------------------------------
 (use-package which-key
+  :ensure t
   :config
   (which-key-mode))
 

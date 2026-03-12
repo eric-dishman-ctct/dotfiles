@@ -128,8 +128,10 @@ Version: 2020-11-20 2022-08-19 2023-06-26 2023-09-09"
       ;; (shell-command "xdg-open .") ;; 2013-02-10 this sometimes froze emacs till the folder is closed. eg with nautilus
       ))))
 
-(with-eval-after-load 'dired
-  (define-key dired-mode-map (kbd "M-<return>") 'xah-open-in-external-app)
-  (define-key dired-mode-map (kbd "C-<return>") 'xah-show-in-desktop))
+(use-package dired
+  :ensure nil
+  :bind (:map dired-mode-map
+              ("M-<return>" . xah-open-in-external-app)
+              ("C-<return>" . xah-show-in-desktop)))
 
 (provide 'config-custom-functions)
